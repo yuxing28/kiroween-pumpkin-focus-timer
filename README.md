@@ -29,6 +29,9 @@ requirements you can review and steer before any code exists.
 - Daily stats (minutes focused, session count) persisted in `localStorage`
 - In-memory fallback when storage is unavailable; midnight rollover resets
 - Fully offline, responsive down to 360px, respects `prefers-reduced-motion`
+- QA smoke mode: open `index.html?smoke=1` for 15-second sessions with
+  compressed growth thresholds (documented affordance used for automated QA
+  and quick demos)
 
 ## Run it
 

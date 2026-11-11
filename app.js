@@ -13,6 +13,11 @@
   ];
   const STORE_KEY = "pumpkin-focus-state";
 
+  // QA smoke mode (?smoke=1): 15-second sessions with compressed growth
+  // thresholds, used for automated QA and quick demos. See README.
+  const SMOKE = new URLSearchParams(location.search).has("smoke");
+  const STAGE_SCALE = SMOKE ? 0.01 : 1;
+
   const $ = (sel) => document.querySelector(sel);
   const els = {
     timer: $("#timer"),
@@ -46,7 +51,12 @@
   let sessions = persisted.sessions || 0;
 
   // ---- state machine ----
-  let state = { phase: "idle", durationSec: 1500, remainingSec: 1500, endAt: 0 };
+  let state = {
+    phase: "idle",
+    durationSec: SMOKE ? 15 : 1500,
+    remainingSec: SMOKE ? 15 : 1500,
+    endAt: 0,
+  };
   let tickId = null;
   let shownStage = -1;
 
@@ -60,7 +70,7 @@
     els.timer.classList.toggle("done", state.phase === "completed");
 
     const stageIdx = STAGES.reduce(
-      (acc, st, i) => (todaySeconds >= st.at ? i : acc), 0);
+      (acc, st, i) => (todaySeconds >= st.at * STAGE_SCALE ? i : acc), 0);
     if (stageIdx !== shownStage) {
       shownStage = stageIdx;
       const st = STAGES[stageIdx];
@@ -181,6 +191,19 @@
     state.remainingSec = state.durationSec;
     render();
   }));
+
+  if (SMOKE) {
+    const smokeChip = document.createElement("button");
+    smokeChip.className = "chip";
+    smokeChip.dataset.min = "0.25";
+    smokeChip.textContent = "15 sec";
+    els.chips.forEach((c) => c.classList.remove("selected"));
+    smokeChip.classList.add("selected");
+    els.chips[0].parentElement.appendChild(smokeChip);
+    smokeChip.addEventListener("click", () => els.chips
+      .concat(smokeChip).forEach((c) =>
+        c.classList.toggle("selected", c === smokeChip)));
+  }
 
   render();
 })();
