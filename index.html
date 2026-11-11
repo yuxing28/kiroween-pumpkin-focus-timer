@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pumpkin Focus Timer 🎃 — Kiroween 2026</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>🎃 Pumpkin Focus Timer</h1>
+    <p class="tagline">Plant a seed. Stay focused. Grow a jack-o'-lantern.</p>
+    <p class="badge">#KiroweenHackathon26 · built with Kiro spec-driven dev</p>
+  </header>
+
+  <section class="stage-strip" aria-label="Pumpkin growth stages">
+    <div class="stage" data-stage="0"><span class="emoji">🌰</span><span class="label">Seed</span></div>
+    <div class="stage" data-stage="1"><span class="emoji">🌱</span><span class="label">Sprout</span></div>
+    <div class="stage" data-stage="2"><span class="emoji">🎃</span><span class="label">Small</span></div>
+    <div class="stage" data-stage="3"><span class="emoji">🎃</span><span class="label">Big</span></div>
+    <div class="stage" data-stage="4"><span class="emoji">🎃</span><span class="label">Glow</span></div>
+  </section>
+
+  <section class="hero">
+    <div id="hero-emoji" class="hero-emoji" role="img" aria-label="Current pumpkin stage">🌰</div>
+    <div id="timer" class="timer" aria-live="polite">25:00</div>
+    <div class="chips" role="group" aria-label="Session length">
+      <button class="chip" data-min="15">15 min</button>
+      <button class="chip selected" data-min="25">25 min</button>
+      <button class="chip" data-min="50">50 min</button>
+    </div>
+    <div class="controls">
+      <button id="btn-primary" class="btn primary">Start Focus</button>
+      <button id="btn-reset" class="btn">Reset</button>
+    </div>
+  </section>
+
+  <footer class="stats">
+    <span id="stat-minutes">0 min focused today</span>
+    <span id="stat-sessions">0 sessions</span>
+  </footer>
+</main>
+
+<div id="overlay" class="overlay hidden" role="dialog" aria-modal="true">
+  <div class="overlay-card">
+    <div class="overlay-emoji">👻</div>
+    <h2>Session complete!</h2>
+    <p id="overlay-text">The pumpkin is pleased.</p>
+    <button id="btn-dismiss" class="btn primary">Nice 🎃</button>
+  </div>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
