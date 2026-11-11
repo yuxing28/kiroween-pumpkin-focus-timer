@@ -172,8 +172,11 @@
   // ---- events ----
   els.primary.addEventListener("click", () => {
     if (state.phase === "running") pause();
-    else if (state.phase === "paused" || state.phase === "completed") {
-      if (state.phase === "completed") state.remainingSec = state.durationSec;
+    else if (state.phase === "paused") start();
+    else if (state.phase === "completed") {
+      state.remainingSec = state.durationSec;
+      start();
+    } else {
       start();
     }
   });
